@@ -7,7 +7,7 @@ return {
 			vim.cmd("colorscheme tokyonight")
 		end,
 	},
-    -- 标签栏
+	-- 标签栏
 	{
 		"akinsho/bufferline.nvim",
 		lazy = false,
@@ -28,7 +28,7 @@ return {
 			require("bufferline").setup({})
 		end,
 	},
-    -- 控制标签栏
+	-- 控制标签栏
 	{
 		"tiagovla/scope.nvim",
 		init = function()
@@ -39,5 +39,20 @@ return {
 			{ "<S-H>", "<CMD>bprevious<CR>" },
 		},
 	},
+	-- 平滑滚动
+	{
+		"declancm/cinnamon.nvim",
+		version = "*", -- use latest release
+		opts = {
+			-- change default options here
+			keymaps = {
+				basic = true,
+				extra = true,
+			},
+		},
+	},
+	{
+		"sphamba/smear-cursor.nvim",
+		opts = {},
+	},
 }
-
