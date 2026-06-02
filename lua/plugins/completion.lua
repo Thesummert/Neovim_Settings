@@ -137,6 +137,11 @@ return {
 	-- 优化LSP 类似vscode体验 目前主要使用悬浮提示函数定义
 	{
 		"nvimdev/lspsaga.nvim",
+		opts = {
+			symbol_in_winbar = {
+				enable = false,
+			},
+		},
 		config = function()
 			require("lspsaga").setup({})
 
@@ -146,7 +151,7 @@ return {
 			-- 自动显示 Hover
 
 			-- 自动 Hover 开关
-			vim.g.auto_hover_enabled = true
+			vim.g.auto_hover_enabled = false
 
 			vim.api.nvim_create_autocmd("CursorHold", {
 				callback = function()
@@ -170,6 +175,15 @@ return {
 				vim.notify("Auto Hover " .. (vim.g.auto_hover_enabled and "Enabled" or "Disabled"), vim.log.levels.INFO)
 			end, {
 				desc = "Toggle Auto Hover",
+			})
+			vim.api.nvim_create_autocmd("LspAttach", {
+				callback = function(args)
+					local bufnr = args.buf
+
+					if vim.bo[bufnr].filetype == "matlab" then
+						vim.b[bufnr].disable_winbar = true
+					end
+				end,
 			})
 		end,
 		dependencies = {
