@@ -46,13 +46,20 @@ return {
 		opts = {
 			-- change default options here
 			keymaps = {
-				basic = true,
-				extra = true,
+				basic = false,
+				extra = false,
 			},
 		},
 	},
+	-- 光标动画
 	{
 		"sphamba/smear-cursor.nvim",
 		opts = {},
+	},
+	{
+		"hiphish/rainbow-delimiters.nvim",
+	},
+	{
+		"xiyaowong/transparent.nvim",
 	},
 }

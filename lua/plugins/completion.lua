@@ -134,4 +134,58 @@ return {
 		lazy = false,
 		build = ":TSUpdate",
 	},
+	-- 优化LSP 类似vscode体验 目前主要使用悬浮提示函数定义
+	{
+		"nvimdev/lspsaga.nvim",
+		config = function()
+			require("lspsaga").setup({})
+
+			-- 触发时间
+			vim.o.updatetime = 500
+
+			-- 自动显示 Hover
+
+			-- 自动 Hover 开关
+			vim.g.auto_hover_enabled = true
+
+			vim.api.nvim_create_autocmd("CursorHold", {
+				callback = function()
+					if not vim.g.auto_hover_enabled then
+						return
+					end
+
+					if vim.fn.mode() ~= "n" then
+						return
+					end
+
+					-- 或者：
+					require("lspsaga.hover"):render_hover_doc()
+				end,
+			})
+
+			-- 切换自动 Hover
+			vim.keymap.set("n", "<leader>uh", function()
+				vim.g.auto_hover_enabled = not vim.g.auto_hover_enabled
+
+				vim.notify("Auto Hover " .. (vim.g.auto_hover_enabled and "Enabled" or "Disabled"), vim.log.levels.INFO)
+			end, {
+				desc = "Toggle Auto Hover",
+			})
+		end,
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter", -- optional
+			"nvim-tree/nvim-web-devicons", -- optional
+		},
+		event = "LspAttach",
+	},
+	-- 提供函数签名提示
+	{
+		{
+			"ray-x/lsp_signature.nvim",
+			event = "InsertEnter",
+			opts = {
+				-- cfg options
+			},
+		},
+	},
 }
