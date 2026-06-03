@@ -137,13 +137,14 @@ return {
 	-- 优化LSP 类似vscode体验 目前主要使用悬浮提示函数定义
 	{
 		"nvimdev/lspsaga.nvim",
-		opts = {
-			symbol_in_winbar = {
-				enable = false,
-			},
-		},
 		config = function()
-			require("lspsaga").setup({})
+			require("lspsaga").setup({
+				opts = {
+					symbol_in_winbar = {
+						enable = false,
+					},
+				},
+			})
 
 			-- 触发时间
 			vim.o.updatetime = 500
