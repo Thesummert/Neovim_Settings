@@ -9,25 +9,12 @@ return {
 		dependencies = {
 			"mason-org/mason.nvim",
 			"mason-org/mason-lspconfig.nvim",
-
-			"hrsh7th/cmp-nvim-lsp",
+			"saghen/blink.cmp",
 		},
 
 		config = function()
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-			vim.lsp.config("lua_ls", {
-				capabilities = capabilities,
-
-				settings = {
-					Lua = {
-						diagnostics = {
-							globals = { "vim" },
-						},
-					},
-				},
-			})
-
+			local capabilities = require("blink.cmp").get_lsp_capabilities()
+			local lspconfig = require("lspconfig")
 			vim.lsp.enable("lua_ls")
 			-- C/C++
 			vim.lsp.config("clangd", {
@@ -56,79 +43,158 @@ return {
 		opts = {},
 	},
 
-	-- nvim-cmp
 	{
-		"hrsh7th/nvim-cmp",
+		"saghen/blink.cmp",
+		-- optional: provides snippets for the snippet source
+		dependencies = { "rafamadriz/friendly-snippets", "L3MON4D3/LuaSnip" },
 
-		event = "InsertEnter",
+		-- use a release tag to download pre-built binaries
+		version = "1.*",
+		-- AND/OR build from source
+		-- build = 'cargo build --release',
+		-- If you use nix, you can build from source with:
+		-- build = 'nix run .#build-plugin',
 
-		dependencies = {
+		---@module 'blink.cmp'
+		---@type blink.cmp.Config
+		opts = {
+			-- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
+			-- 'super-tab' for mappings similar to vscode (tab to accept)
+			-- 'enter' for enter to accept
+			-- 'none' for no mappings
+			--
+			-- All presets have the following mappings:
+			-- C-space: Open menu or open docs if already open
+			-- C-n/C-p or Up/Down: Select next/previous item
+			-- C-e: Hide menu
+			-- C-k: Toggle signature help (if signature.enabled = true)
+			--
+			-- See :h blink-cmp-config-keymap for defining your own keymap
+			keymap = {
+				preset = "default",
 
-			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-buffer",
-			"hrsh7th/cmp-path",
-			"saadparwaiz1/cmp_luasnip",
+				["<C-b>"] = { "scroll_documentation_up" },
+				["<C-f>"] = { "scroll_documentation_down" },
 
-			"L3MON4D3/LuaSnip",
-			"rafamadriz/friendly-snippets",
-		},
+				["<C-Space>"] = { "show" },
 
-		config = function()
-			local cmp = require("cmp")
-			local luasnip = require("luasnip")
+				["<CR>"] = { "accept" },
 
-			require("luasnip.loaders.from_vscode").lazy_load()
-
-			cmp.setup({
-
-				snippet = {
-					expand = function(args)
-						luasnip.lsp_expand(args.body)
-					end,
+				["<Tab>"] = {
+					"select_next",
+					"snippet_forward",
+					"fallback",
 				},
 
-				mapping = cmp.mapping.preset.insert({
+				["<S-Tab>"] = {
+					"select_prev",
+					"snippet_backward",
+					"fallback",
+				},
+			},
+            
 
-					["<C-b>"] = cmp.mapping.scroll_docs(-4),
-					["<C-f>"] = cmp.mapping.scroll_docs(4),
+			snippets = {
+				preset = "luasnip",
+			},
 
-					["<C-Space>"] = cmp.mapping.complete(),
+			appearance = {
+				-- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+				-- Adjusts spacing to ensure icons are aligned
+				nerd_font_variant = "mono",
+			},
 
-					["<CR>"] = cmp.mapping.confirm({
-						select = true,
-					}),
+			-- (Default) Only show the documentation popup when manually triggered
+			completion = { documentation = { auto_show = false } },
 
-					["<Tab>"] = cmp.mapping(function(fallback)
-						if cmp.visible() then
-							cmp.select_next_item()
-						elseif luasnip.expand_or_jumpable() then
-							luasnip.expand_or_jump()
-						else
-							fallback()
-						end
-					end, { "i", "s" }),
+			-- Default list of enabled providers defined so that you can extend it
+			-- elsewhere in your config, without redefining it, due to `opts_extend`
+			sources = {
+				default = { "lsp", "path", "snippets", "buffer" },
+			},
 
-					["<S-Tab>"] = cmp.mapping(function(fallback)
-						if cmp.visible() then
-							cmp.select_prev_item()
-						elseif luasnip.jumpable(-1) then
-							luasnip.jump(-1)
-						else
-							fallback()
-						end
-					end, { "i", "s" }),
-				}),
-
-				sources = cmp.config.sources({
-
-					{ name = "nvim_lsp" },
-					{ name = "luasnip" },
-					{ name = "buffer" },
-					{ name = "path" },
-				}),
-			})
-		end,
+			-- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
+			-- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
+			-- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
+			--
+			-- See the fuzzy documentation for more information
+			fuzzy = { implementation = "prefer_rust_with_warning" },
+		},
+		opts_extend = { "sources.default" },
 	},
+	-- nvim-cmp
+	-- {
+	-- 	"hrsh7th/nvim-cmp",
+	--
+	-- 	event = "InsertEnter",
+	--
+	-- 	dependencies = {
+	--
+	-- 		"hrsh7th/cmp-nvim-lsp",
+	-- 		"hrsh7th/cmp-buffer",
+	-- 		"hrsh7th/cmp-path",
+	-- 		"saadparwaiz1/cmp_luasnip",
+	--
+	-- 		"L3MON4D3/LuaSnip",
+	-- 		"rafamadriz/friendly-snippets",
+	-- 	},
+	--
+	-- 	config = function()
+	-- 		local cmp = require("cmp")
+	-- 		local luasnip = require("luasnip")
+	--
+	-- 		require("luasnip.loaders.from_vscode").lazy_load()
+	--
+	-- 		cmp.setup({
+	--
+	-- 			snippet = {
+	-- 				expand = function(args)
+	-- 					luasnip.lsp_expand(args.body)
+	-- 				end,
+	-- 			},
+	--
+	-- 			mapping = cmp.mapping.preset.insert({
+	--
+	-- 				["<C-b>"] = cmp.mapping.scroll_docs(-4),
+	-- 				["<C-f>"] = cmp.mapping.scroll_docs(4),
+	--
+	-- 				["<C-Space>"] = cmp.mapping.complete(),
+	--
+	-- 				["<CR>"] = cmp.mapping.confirm({
+	-- 					select = true,
+	-- 				}),
+	--
+	-- 				["<Tab>"] = cmp.mapping(function(fallback)
+	-- 					if cmp.visible() then
+	-- 						cmp.select_next_item()
+	-- 					elseif luasnip.expand_or_jumpable() then
+	-- 						luasnip.expand_or_jump()
+	-- 					else
+	-- 						fallback()
+	-- 					end
+	-- 				end, { "i", "s" }),
+	--
+	-- 				["<S-Tab>"] = cmp.mapping(function(fallback)
+	-- 					if cmp.visible() then
+	-- 						cmp.select_prev_item()
+	-- 					elseif luasnip.jumpable(-1) then
+	-- 						luasnip.jump(-1)
+	-- 					else
+	-- 						fallback()
+	-- 					end
+	-- 				end, { "i", "s" }),
+	-- 			}),
+	--
+	-- 			sources = cmp.config.sources({
+	--
+	-- 				{ name = "nvim_lsp" },
+	-- 				{ name = "luasnip" },
+	-- 				{ name = "buffer" },
+	-- 				{ name = "path" },
+	-- 			}),
+	-- 		})
+	-- 	end,
+	-- },
 	{
 		"nvim-treesitter/nvim-treesitter",
 		lazy = false,
