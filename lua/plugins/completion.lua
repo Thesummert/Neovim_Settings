@@ -78,7 +78,7 @@ return {
 
 				["<C-Space>"] = { "show" },
 
-				["<CR>"] = { "accept" },
+				["<CR>"] = { "accept", "fallback" },
 
 				["<Tab>"] = {
 					"select_next",
@@ -131,10 +131,8 @@ return {
 		"nvimdev/lspsaga.nvim",
 		config = function()
 			require("lspsaga").setup({
-				opts = {
-					symbol_in_winbar = {
-						enable = false,
-					},
+				symbol_in_winbar = {
+					enable =false, --先暂时关闭 matlab中会出问题
 				},
 			})
 
