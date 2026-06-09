@@ -4,13 +4,21 @@ return {
 		"olimorris/codecompanion.nvim",
 		version = "^19.0.0",
 		opts = {
-			language = "English",
+			language = "Chinese",
 			interactions = {
 				chat = {
 					-- You can specify an adapter by name and model (both ACP and HTTP)
 					adapter = {
 						name = "deepseek",
 						model = "deepseek-v4-flash",
+					},
+					opts = {
+						system_prompt = function(context)
+							return context.default_system_prompt .. [[
+
+请始终使用中文回复。
+]]
+						end,
 					},
 				},
 				-- Or, just specify the adapter by name
