@@ -56,7 +56,8 @@ vim.api.nvim_set_keymap('v', '<S-Tab>', '<gv', { noremap = true })
 -- 保存/退出 (<leader>w / <leader>q)
 vim.api.nvim_set_keymap('n', '<leader>w', ':wa<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>q', ':qa<CR>', { noremap = true })
-
+-- 退出窗口
+vim.keymap.set('n', '<S-q>', ':q<CR>', {noremap = true});
 -- 取消高亮 (<leader>nhl)
 vim.api.nvim_set_keymap('n', '<leader>nhl', ':nohlsearch<CR>', { noremap = true })
 
@@ -101,3 +102,11 @@ vim.keymap.set("n", "<leader>se", vim.diagnostic.open_float)
 vim.keymap.set({ "n", "v" }, "<leader>ac", "<cmd>CodeCompanionChat Toggle<cr>", { noremap = true, silent = true })
 vim.keymap.set({ "n", "v" }, "<leader>ai", ":CodeCompanion ", { noremap = true, silent = false})
 vim.keymap.set("v", "ga", "<cmd>CodeCompanionChat Add<cr>", { noremap = true, silent = true })
+
+-- 切换窗口
+vim.keymap.set({ "n", "v" }, '<C-h>', '<C-w>h');
+vim.keymap.set({ "n", "v" }, '<C-k>', '<C-w>k');
+vim.keymap.set({ "n", "v" }, '<C-j>', '<C-w>j');
+vim.keymap.set({ "n", "v" }, '<C-k>', '<C-w>k');
+
+
