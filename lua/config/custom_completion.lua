@@ -64,4 +64,13 @@ ls.add_snippets("c", {
     }}
     ]], { i(1)}))
 })
+
+-- 快速注释
+ls.add_snippets("c", {
+    s("cmt", fmt([[
+    /*{}*/
+    ]], { i(1)}))
+})
+
+
 ls.filetype_extend("cpp", { "c" })
