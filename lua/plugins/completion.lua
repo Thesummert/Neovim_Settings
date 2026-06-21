@@ -132,50 +132,17 @@ return {
 		config = function()
 			require("lspsaga").setup({
 				symbol_in_winbar = {
-					enable =false, --先暂时关闭 matlab中会出问题
+					enable = false, --先暂时关闭 matlab中会出问题
 				},
 			})
 
 			-- 触发时间
 			vim.o.updatetime = 500
 
-			-- 自动显示 Hover
-
-			-- 自动 Hover 开关
-			vim.g.auto_hover_enabled = false
-
-			vim.api.nvim_create_autocmd("CursorHold", {
-				callback = function()
-					if not vim.g.auto_hover_enabled then
-						return
-					end
-
-					if vim.fn.mode() ~= "n" then
-						return
-					end
-
-					-- 或者：
-					require("lspsaga.hover"):render_hover_doc()
-				end,
-			})
-
-			-- 切换自动 Hover
+			-- 启动Hover
 			vim.keymap.set("n", "<leader>uh", function()
-				vim.g.auto_hover_enabled = not vim.g.auto_hover_enabled
-
-				vim.notify("Auto Hover " .. (vim.g.auto_hover_enabled and "Enabled" or "Disabled"), vim.log.levels.INFO)
-			end, {
-				desc = "Toggle Auto Hover",
-			})
-			vim.api.nvim_create_autocmd("LspAttach", {
-				callback = function(args)
-					local bufnr = args.buf
-
-					if vim.bo[bufnr].filetype == "matlab" then
-						vim.b[bufnr].disable_winbar = true
-					end
-				end,
-			})
+				require("lspsaga.hover"):render_hover_doc()
+			end)
 		end,
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter", -- optional
