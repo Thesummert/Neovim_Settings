@@ -110,7 +110,7 @@ return {
 		config = function()
 			require("project_nvim").setup({
 				detection_methods = { "pattern" },
-				patterns = { ".git", "CMakeLists.txt", "package.json" },
+				patterns = { ".git", "CMakeLists.txt", "package.json" , ".nvimprj"},
 			})
 		end,
 	},
