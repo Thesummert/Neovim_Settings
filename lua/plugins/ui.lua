@@ -1,10 +1,11 @@
 return {
 	{
-		"folke/tokyonight.nvim",
+		-- "folke/tokyonight.nvim",
+		"scottmckendry/cyberdream.nvim",
 		lazy = false,
 		priority = 1000,
 		config = function()
-			vim.cmd("colorscheme tokyonight")
+			vim.cmd("colorscheme cyberdream")
 		end,
 	},
 	-- 标签栏
