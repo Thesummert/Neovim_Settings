@@ -109,7 +109,5 @@ vim.keymap.set({ "n", "v" }, '<C-k>', '<C-w>k');
 vim.keymap.set({ "n", "v" }, '<C-j>', '<C-w>j');
 vim.keymap.set({ "n", "v" }, '<C-l>', '<C-w>l');
 
--- 退出终端模式
-vim.keymap.set({ "t" }, '<ESC><ESC>', '<C-\\><C-n>');
 
 
