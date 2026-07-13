@@ -5,12 +5,41 @@ return {
 		version = "^19.0.0",
 		opts = {
 			language = "Chinese",
+			adapters = {
+				http = {
+					yapi = function()
+						local adapter = require("codecompanion.adapters").extend("openai", {
+							name = "yapi",
+							formatted_name = "Yapi",
+							url = "https://yapi.click/v1/chat/completions",
+							env = {
+								api_key = function()
+									return os.getenv("YAPI_API_KEY")
+								end,
+							},
+						})
+						adapter.schema.model = {
+							order = 1,
+							mapping = "parameters",
+							type = "enum",
+							desc = "ID of the model to use.",
+							default = "gpt-5.5",
+							choices = {
+								["gpt-5.5"] = { opts = { can_reason = true } },
+								["gpt-5.6-terra"] = { opts = { can_reason = true } },
+								["gpt-5.6-sol"] = { opts = { can_reason = true } },
+							},
+						}
+						return adapter
+					end,
+				},
+			},
 			interactions = {
 				chat = {
 					-- You can specify an adapter by name and model (both ACP and HTTP)
 					adapter = {
-						name = "deepseek",
-						model = "deepseek-v4-flash",
+						name = "yapi",
+						model = "gpt-5.5",
 					},
 					opts = {
 						system_prompt = function(context)
