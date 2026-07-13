@@ -21,6 +21,7 @@ return {
 				capabilities = capabilities,
 			}, vim.lsp.enable("matlab_ls"))
 			vim.lsp.enable("neocmake")
+			vim.lsp.enable("jsonls")
 			-- Markdown
 			-- require("render-markdown").setup({
 			-- 	completions = { lsp = { enabled = true } },

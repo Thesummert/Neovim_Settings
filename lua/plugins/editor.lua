@@ -38,6 +38,8 @@ return {
 				lua = { "stylua" },
 				python = { "ruff_format" },
 				matlab = { "miss_hit" },
+				json = { "prettier" },
+				jsonc = { "prettier" },
 				["*"] = { "trim_whitespace" },
 			},
 			formatters = {
@@ -110,7 +112,7 @@ return {
 		config = function()
 			require("project_nvim").setup({
 				detection_methods = { "pattern" },
-				patterns = { ".git", "CMakeLists.txt", "package.json" , ".nvimprj"},
+				patterns = { ".git", "CMakeLists.txt", "package.json", ".nvimprj" },
 			})
 		end,
 	},
