@@ -8,10 +8,10 @@ return {
 			adapters = {
 				http = {
 					yapi = function()
-						local adapter = require("codecompanion.adapters").extend("openai", {
+						local adapter = require("codecompanion.adapters").extend("openai_responses", {
 							name = "yapi",
 							formatted_name = "Yapi",
-							url = "https://yapi.click/v1/chat/completions",
+							url = "https://yapi.click/v1/responses",
 							env = {
 								api_key = function()
 									return os.getenv("YAPI_API_KEY")
