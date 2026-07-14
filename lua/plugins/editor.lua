@@ -40,6 +40,7 @@ return {
 				matlab = { "miss_hit" },
 				json = { "prettier" },
 				jsonc = { "prettier" },
+				python = { "black" },
 				["*"] = { "trim_whitespace" },
 			},
 			formatters = {

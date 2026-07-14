@@ -22,6 +22,7 @@ return {
 			}, vim.lsp.enable("matlab_ls"))
 			vim.lsp.enable("neocmake")
 			vim.lsp.enable("jsonls")
+			vim.lsp.enable("pylsp")
 			-- Markdown
 			-- require("render-markdown").setup({
 			-- 	completions = { lsp = { enabled = true } },
