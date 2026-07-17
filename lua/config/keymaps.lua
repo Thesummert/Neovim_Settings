@@ -112,3 +112,5 @@ vim.keymap.set({ "n", "v" }, '<C-l>', '<C-w>l');
 
 
 vim.keymap.set({ "n" }, '<leader>bc', ':lua vim.lsp.buf.code_action() <CR>');
+
+vim.keymap.set({ "t"}, '<F4>', '<C-\\><C-n>');
