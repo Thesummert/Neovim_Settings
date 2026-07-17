@@ -100,6 +100,7 @@ vim.keymap.set("n", "<leader>se", vim.diagnostic.open_float)
 
 -- CodeCompletion
 vim.keymap.set({ "n", "v" }, "<leader>ac", "<cmd>CodeCompanionChat Toggle<cr>", { noremap = true, silent = true })
+vim.keymap.set({ "n", "v" }, "<leader>at", '<cmd>lua require("codecompanion").toggle()<cr>', { noremap = true, silent = true })
 vim.keymap.set({ "n", "v" }, "<leader>ai", ":CodeCompanion ", { noremap = true, silent = false})
 vim.keymap.set("v", "ga", "<cmd>CodeCompanionChat Add<cr>", { noremap = true, silent = true })
 
