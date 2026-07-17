@@ -18,8 +18,8 @@ vim.opt.smartcase = true -- but make it case sensitive if an uppercase is entere
 
 vim.o.modeline = false
 
-vim.api.nvim_create_autocmd("VimEnter", {
-	callback = function()
-		require("auto-session").RestoreSession()
-	end,
-})
+-- vim.api.nvim_create_autocmd("VimEnter", {
+-- 	callback = function()
+-- 		require("auto-session").RestoreSession()
+-- 	end,
+-- })
