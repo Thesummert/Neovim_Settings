@@ -163,4 +163,12 @@ return {
 	-- 	---@type render.md.UserConfig
 	-- 	opts = {},
 	-- },
+	-- 高亮插件
+	{
+		"kevinhwang91/nvim-hlslens",
+		-- event = "CmdlineEnter",
+		config = function()
+			require("hlslens").setup()
+		end,
+	},
 }
