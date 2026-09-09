@@ -65,14 +65,32 @@ return {
 						model = "deepseek-v4-flash",
 					},
 				},
+				-- cli = {
+				-- 	agent = "opencode",
+				--
+				-- 	agents = {
+				-- 		opencode = {
+				-- 			cmd = "opencode",
+				-- 			args = {},
+				-- 			description = "OpenCode CLI",
+				-- 			provider = "terminal",
+				-- 		},
+				-- 	},
+				-- },
 				cli = {
-					agent = "opencode",
+					agent = "codex",
 
 					agents = {
+						codex = {
+							cmd = "codex",
+							args = {},
+							description = "Codex CLI",
+							provider = "terminal",
+						},
 						opencode = {
 							cmd = "opencode",
 							args = {},
-							description = "OpenCode CLI",
+							description = "Opencode CLI",
 							provider = "terminal",
 						},
 					},
