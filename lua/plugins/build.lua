@@ -5,6 +5,7 @@ return {
 		---@type overseer.SetupOpts
 		config = function()
 			require("overseer").setup()
+			require("config.project_tasks").setup()
 		end,
 		opts = {},
 	},
