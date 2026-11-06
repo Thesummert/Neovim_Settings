@@ -5,5 +5,4 @@ require("config.ui")
 require("config.options")
 require("config.custom_completion")
 
-require("overseer.cmake")
 require("config.nvim_dap")
