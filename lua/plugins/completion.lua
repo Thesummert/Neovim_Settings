@@ -23,6 +23,7 @@ return {
 			vim.lsp.enable("neocmake")
 			vim.lsp.enable("jsonls")
 			vim.lsp.enable("pylsp")
+			vim.lsp.enable("rust_analyzer")
 			-- Markdown
 			-- require("render-markdown").setup({
 			-- 	completions = { lsp = { enabled = true } },
